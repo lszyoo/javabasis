@@ -1,3 +1,4 @@
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -7,6 +8,7 @@ import org.apache.flink.util.OutputTag;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @Writer ArtisanLS
@@ -19,6 +21,10 @@ public class FlinkTest {
         DataStream<Integer> input = env.fromCollection(list);
         final OutputTag<String> outputTag = new OutputTag<>("side-output"){};
         final OutputTag<String> outputTag1 = new OutputTag<>("side-output1"){};
+
+        Java3y java3y = new Java3y();
+        Consumer<String> consumer = java3y::myName;
+        consumer.accept("=============");
 
         SingleOutputStreamOperator<Integer> mainDataStream = input
                 .process(new ProcessFunction<>() {
@@ -39,5 +45,21 @@ public class FlinkTest {
         mainDataStream.getSideOutput(outputTag1).print();
 
         env.execute();
+    }
+}
+
+class Java3y {
+    // 静态方法
+    public static void MyNameStatic(String name) {
+        System.out.println(name);
+    }
+
+    // 实例方法
+    public void myName(String name) {
+        System.out.println(name);
+    }
+
+    // 无参构造方法
+    public Java3y() {
     }
 }

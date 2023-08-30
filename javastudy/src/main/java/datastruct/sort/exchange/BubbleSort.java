@@ -27,7 +27,7 @@ public class BubbleSort {
         if (len == 1) return arr;
 
         // 从小到大排序
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) { // n 次交换
             // 数组最右端的 i 个值已经排好序，arr[j + 1] 可取到数组末端
             for (int j = 0; j < len - i - 1; j++) {
                 // 两两交换

@@ -129,13 +129,9 @@ public class Sort {
     }
 
     public static int[] mergeSort(int[] arr) {
-        if (arr == null) return arr;
-
-        int len = arr.length;
-        if (len == 1) return arr;
-
-        int[] left = Arrays.copyOfRange(arr, 0, len / 2);
-        int[] right = Arrays.copyOfRange(arr, len / 2, len);
+        if (arr == null || arr.length < 2) return arr;
+        int[] left = Arrays.copyOfRange(arr, 0, arr.length / 2);
+        int[] right = Arrays.copyOfRange(arr, arr.length / 2, arr.length);
         return merge(mergeSort(left), mergeSort(right));
     }
 
@@ -147,16 +143,16 @@ public class Sort {
         int li = 0, ri = 0, si = 0;
         while (llen > li && rlen > ri) {
             if (left[li] > right[ri]) {
-                res[ri++] = right[ri++];
+                res[si++] = right[ri++];
             } else {
-                res[ri++] = left[li++];
+                res[si++] = left[li++];
             }
         }
         while (llen > li) {
-            res[ri++] = left[li++];
+            res[si++] = left[li++];
         }
         while (rlen > ri) {
-            res[ri++] = right[ri++];
+            res[si++] = left[ri++];
         }
         return res;
     }

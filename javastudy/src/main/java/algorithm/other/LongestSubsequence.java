@@ -20,6 +20,13 @@ public class LongestSubsequence {
 
     /**
      * 最长公共子序列
+     * <p>
+     *     设有二维数组 dp[i,j] 表示 X 的 i 位和 Y 的 j 位之前的最长公共子序列的长度
+     *                { 0                             i=0,j=0
+     *     dp[i][j] = { dp[i-1][j-1] + 1              i,j>0;Ai=Bj
+     *                { max(dp[i][j-1], dp[i-1][j])   i,j>0;Ai≠Bj
+     * </p>
+     *
      * 参考链接：https://blog.csdn.net/qq_58668057/article/details/123774788
      */
     public static int longestCommonSubsequence(String strA, String strB) {
@@ -44,6 +51,7 @@ public class LongestSubsequence {
 
     /**
      * 最长上升子序列
+     * dp[i]：表示以第 i 个数字为结尾的"最长上升子序列"的长度
      * 参考链接：https://zhuanlan.zhihu.com/p/92604300
      */
     public static int longestRiseSubsequence(int[] arr) {
@@ -56,7 +64,7 @@ public class LongestSubsequence {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < i; j++) {
                 if (arr[j] < arr[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                    dp[i] = Math.max(dp[i], dp[j] + 1); // dp[] 动态规划数组不一定升序
                 }
             }
             res = Math.max(res, dp[i]);
